@@ -5,6 +5,16 @@ const nodemailer = require("nodemailer");
 
 router.post("/", async (req, res) => {
   try {
+
+      //check  whether username is  taken
+      if(await User.findOne({username:req.body.username}))
+      {
+        throw 'Username ' +req.body.username+' is already taken';
+      }
+      if(await User.findOne({email:req.body.email}))
+      {
+        throw 'An account with this email id already exists ';
+      }
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newUser = await new User({
