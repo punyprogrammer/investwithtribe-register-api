@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
     res.status(200).json({ data: others, msg: "Registration Successful!!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(500).json({errMsg:err});
   }
 });
 
